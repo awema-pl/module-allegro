@@ -31,11 +31,16 @@ class CreateAllegroAccountsTable extends Migration
                 ->onDelete('cascade');
         });
 
+        Schema::table(config('allegro.database.tables.allegro_accounts'), function (Blueprint $table) {
+            $table->unique(['user_id', 'seller_id']);
+        });
+
     }
 
     public function down()
     {
         Schema::table(config('allegro.database.tables.allegro_accounts'), function (Blueprint $table) {
+            $table->dropUnique(['user_id', 'seller_id']);
             $table->dropForeign(['application_id']);
             $table->dropForeign(['user_id']);
         });

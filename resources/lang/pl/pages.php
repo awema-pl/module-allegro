@@ -21,9 +21,7 @@ return [
         'expires_at' =>'Wygasa',
         'created_at' =>'Utworzono',
         'connect_account' => 'Połącz konto',
-        'edit_account' => 'Edycja konta',
         'options' =>'Opcje',
-        'edit' =>'Edytuj',
         'reconnect' => 'Połącz ponownie',
         'delete' =>'Usuń',
         'own_application' => 'Wybierz własną aplikację Allegro.',
@@ -31,7 +29,6 @@ return [
         'are_you_sure_delete'=>'Czy na pewno usunąć?',
         'are_you_sure_reconnect' => 'Czy na pewno połączyć ponownie?',
         'confirm' =>'Potwierdź',
-        'save' => 'Zapisz',
         'connect' => 'Połącz',
     ],
     'application'=>[

@@ -46,9 +46,6 @@
                                             <button type="submit" slot="toggler" class="btn">
                                                 {{_p('allegro::pages.account.options', 'Options')}}
                                             </button>
-                                            <cm-button @click="AWEMA._store.commit('setData', {param: 'editAccount', data: col.data}); AWEMA.emit('modal::edit_account:open')">
-                                                {{_p('allegro::pages.account.edit', 'Edit')}}
-                                            </cm-button>
                                             <cm-button @click="AWEMA._store.commit('setData', {param: 'reconnectAccount', data: col.data}); AWEMA.emit('modal::reconnect_account:open')">
                                                 {{_p('allegro::pages.account.reconnect', 'Reconnect')}}
                                             </cm-button>
@@ -86,19 +83,6 @@
                               label="{{ _p('allegro::pages.account.select_application', 'Select application') }}">
                    </fb-select>
                </div>
-            </div>
-        </form-builder>
-    </modal-window>
-
-    <modal-window name="edit_account" class="modal_formbuilder" title="{{ _p('allegro::pages.account.edit_account', 'Edit account') }}">
-        <form-builder url="{{ route('allegro.account.update') }}/{id}" method="patch"
-                      @sended="AWEMA.emit('content::accounts_table:update')"
-                      send-text="{{ _p('allegro::pages.account.save', 'Save') }}" store-data="editAccount">
-            <div class="grid" v-if="AWEMA._store.state.editAccount">
-                <div class="cell">
-                    <fb-date name="expires_at" format="YYYY-MM-DD HH:mm:ss" label="{{ _p('allegro::pages.account.expiration_date', 'Expiration date') }}"></fb-date>
-                    <fb-textarea name="comment" label="{{ _p('allegro::pages.account.comment', 'Comment') }}"></fb-textarea>
-                </div>
             </div>
         </form-builder>
     </modal-window>

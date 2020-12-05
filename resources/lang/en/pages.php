@@ -19,10 +19,7 @@ return [
         "accounts" => "Account",
         "created_at" => "Created at",
         "options" => "Options",
-        "edit" => "Edit",
         "delete" => "Delete",
-        "edit_account" => "Edit account",
-        "save" => "Save",
         "are_you_sure_delete" => "Are you sure delete?",
         "confirm" => "Confirm",
         "create" => "Utwórz",
@@ -44,7 +41,7 @@ return [
         "sandbox" => "Mode sandbox",
         "own_application" => "Choose your own Allegro application..",
         "select_application" => "Select application",
-        "expires_at" => "Expires at"
+        "expires_at" => "Expires at",
     ],
     "application" => [
         "meta_title" => "Applications",

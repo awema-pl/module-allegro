@@ -7,6 +7,9 @@ namespace AwemaPL\Allegro\Client;
 /**
  * Used namespaces
  */
+
+use AwemaPL\Allegro\Sections\Accounts\Exceptions\AllegroException;
+use AwemaPL\Baselinker\Client\Api\Response\BaselinkerClientException;
 use RuntimeException;
 
 /**
@@ -54,6 +57,9 @@ use RuntimeException;
  * // Getting our comments
  * $response = $restApi->get('/sale/user-ratings?user.id=' . $yourUserId)
  * </pre>
+ *
+ * // More examples
+ * https://github.com/swdreams/allegro-api-1
  * 
  * @see        https://developer.allegro.pl/about/
  * @author     ASOCIAL MEDIA Maciej Strączkowski <biuro@asocial.media>
@@ -303,6 +309,21 @@ class AllegroRestApi
     {
         return $this->sendRequest($resource, 'PUT', $data, $headers, $json);
     }
+
+    /**
+     * Sends PATCH request to Allegro REST API
+     * and returns response
+     *
+     * @param   string  $resource   Resource path
+     * @param   array   $data       Request body
+     * @param   array   $headers    Request headers
+     * @param   boolean $json       Should we send $data as JSON?
+     * @return  object
+     */
+    public function patch($resource, $data, array $headers = array(), $json = true)
+    {
+        return $this->sendRequest($resource, 'PATCH', $data, $headers, $json);
+    }
     
     /**
      * Sends DELETE request to Allegro REST API
@@ -338,34 +359,37 @@ class AllegroRestApi
             'http' => array(
                 'method'  => strtoupper($method),
                 'header'  => $this->parseHeaders($requestHeaders = array_replace(array(
-                    'User-Agent'      => 'AsocialMedia/AllegroApi/v3.1.0 (+https://asocial.media)',
+                    'User-Agent'      => 'AwemaPL/Allegro/v1.0.0 (+https://awema.pl)',
                     'Authorization'   => 'Bearer ' . $this->getToken(),
                     'Content-Type'    => 'application/vnd.allegro.public.v1+json',
                     'Accept'          => 'application/vnd.allegro.public.v1+json',
                     'Accept-Language' => 'pl-PL'
                 ), $headers)),
-                'content' => ($json ? json_encode($data) : $data),
+                'content' => ($json ? json_encode($data, JSON_UNESCAPED_UNICODE) : $data),
                 'ignore_errors' => true
             )
         );
 
         // Getting result from API
-        $response = json_decode(file_get_contents(
-            (stristr($resource, 'http') !== false 
-                ? $resource 
+        $contents = file_get_contents(
+            (stristr($resource, 'http') !== false
+                ? $resource
                 : $this->getUrl() . '/' . ltrim($resource, '/')
-            ), 
-            false, 
+            ),
+            false,
             stream_context_create($options)
-        ));
+        );
+
+        $response = json_decode($contents, false, 512, JSON_UNESCAPED_UNICODE);
         
         // We have found an error in response
         if (isset($response->errors) || isset($response->error_description)) {
 
             // Throwing an exception
-            throw new RuntimeException(
+            throw new AllegroRestApiException(
                 'An error has occurred: ' . print_r($response, true),
-                $this->getResponseCode($http_response_header)
+                $this->getResponseCode($http_response_header),
+                $response,
             );
         }
         

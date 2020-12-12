@@ -42,7 +42,8 @@
         "larapack/config-writer": "^1.0",
         "betterapp/laravel-db-encrypter": "^1.0",
         "lcobucci/jwt": "^3.3",
-        "illuminate/support": "~5|~6|~7|~8|~9"
+        "illuminate/support": "~5|~6|~7|~8|~9",
+        "cerbero90/exception-handler": "^3.0"
     },
     "autoload": {
         "psr-4": {

@@ -1,9 +1,9 @@
 <?php
 
-namespace AwemaPL\Allegro\Exceptions;
+namespace AwemaPL\Allegro\Client;
 use Exception;
 
-class AllegroException extends Exception
+class AllegroApiException extends Exception
 {
     protected $errorCode;
 

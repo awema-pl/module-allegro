@@ -8,7 +8,7 @@ namespace AwemaPL\Allegro\Client;
  * Used namespaces
  */
 
-use AwemaPL\Allegro\Exceptions\AllegroException;
+use AwemaPL\Allegro\Client\AllegroApiException;
 use RuntimeException;
 
 /**
@@ -385,7 +385,7 @@ class AllegroRestApi
         if (isset($response->errors) || isset($response->error_description)) {
 
             // Throwing an exception
-            throw new AllegroException(
+            throw new AllegroApiException(
                 'Allegro API error. ' . json_encode($response, JSON_UNESCAPED_UNICODE),
                 $this->getResponseCode($http_response_header)
             );

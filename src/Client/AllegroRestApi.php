@@ -8,8 +8,7 @@ namespace AwemaPL\Allegro\Client;
  * Used namespaces
  */
 
-use AwemaPL\Allegro\Sections\Accounts\Exceptions\AllegroException;
-use AwemaPL\Baselinker\Client\Api\Response\BaselinkerClientException;
+use AwemaPL\Allegro\Exceptions\AllegroException;
 use RuntimeException;
 
 /**
@@ -386,10 +385,9 @@ class AllegroRestApi
         if (isset($response->errors) || isset($response->error_description)) {
 
             // Throwing an exception
-            throw new AllegroRestApiException(
-                'An error has occurred: ' . print_r($response, true),
-                $this->getResponseCode($http_response_header),
-                $response,
+            throw new AllegroException(
+                'Allegro API error. ' . json_encode($response, JSON_UNESCAPED_UNICODE),
+                $this->getResponseCode($http_response_header)
             );
         }
         

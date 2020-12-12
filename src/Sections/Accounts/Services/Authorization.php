@@ -6,7 +6,7 @@ use AwemaPL\Allegro\Client\AllegroRestApi;
 use AwemaPL\Allegro\Sections\Accounts\Models\Account;
 use AwemaPL\Allegro\Sections\Accounts\Repositories\Contracts\AccountRepository;
 use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
-use AwemaPL\Allegro\Sections\Accounts\Exceptions\AllegroException;
+use AwemaPL\Allegro\Exceptions\AllegroException;
 use AwemaPL\Allegro\Sections\Accounts\Services\Contracts\Authorization as AuthorizationContract;
 use Carbon\Carbon;
 use DateTimeImmutable;

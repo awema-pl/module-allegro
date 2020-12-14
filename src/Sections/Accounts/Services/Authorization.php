@@ -9,6 +9,7 @@ use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Allegro\Client\AllegroApiException;
 use AwemaPL\Allegro\Sections\Accounts\Services\Contracts\Authorization as AuthorizationContract;
 use Carbon\Carbon;
+use Exception;
 use DateTimeImmutable;
 use Lcobucci\JWT\Parser;
 use Lcobucci\JWT\Token;
@@ -99,7 +100,9 @@ class Authorization implements AuthorizationContract
             return null;
         }
         if ($account->isRefreshTokenExpiredAt){
-            throw new AllegroApiException(_p('allegro::exceptions.refresh_token_expired', 'Refresh token is expired'));
+            throw new AllegroApiException(
+                'Allegro API error. Refresh token is expired.',AllegroApiException::ERROR_API_ALLEGRO, 403, null, _p('allegro::exceptions.refresh_token_expired', 'Allegro refresh token is expired.')
+            );
         }
         $application = $account->application;
         $clientId = $application->client_id ?? $this->settings->getValue('default_client_id');

@@ -65,4 +65,13 @@ interface AccountRepository
      * @return mixed
      */
     public function getBySellerId($sellerId, $userId = null);
+
+    /**
+     * Get by username
+     *
+     * @param $username
+     * @param null $userId
+     * @return mixed
+     */
+    public function getByUsername($username, $userId = null);
 }

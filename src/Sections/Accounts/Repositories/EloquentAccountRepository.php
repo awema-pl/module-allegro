@@ -102,4 +102,17 @@ class EloquentAccountRepository extends BaseRepository implements AccountReposit
         $userId = $userId ?? Auth::id();
         return Account::where('user_id', $userId)->where('seller_id', $sellerId)->first();
     }
+
+    /**
+     * Get by username
+     *
+     * @param $username
+     * @param null $userId
+     * @return mixed
+     */
+    public function getByUsername($username, $userId = null)
+    {
+        $userId = $userId ?? Auth::id();
+        return Account::where('user_id', $userId)->where('username', $username)->first();
+    }
 }

@@ -98,9 +98,9 @@ return [
     'database' => [
         'tables' => [
             'users' => 'users',
+            'allegro_settings' => 'allegro_settings',
             'allegro_applications'=> 'allegro_applications',
             'allegro_accounts' =>'allegro_accounts',
-            'allegro_settings' => 'allegro_settings',
         ]
     ],
 

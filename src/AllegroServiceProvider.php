@@ -31,10 +31,7 @@ class AllegroServiceProvider extends AwemaProvider
      *
      * @var array
      */
-    protected $policies = [
-        Application::class => ApplicationPolicy::class,
-        Account::class => AccountPolicy::class,
-    ];
+    protected $policies = [];
 
     public function boot()
     {

@@ -5,36 +5,7 @@ return [
 
     'navs' => [
         'sidebar' =>[
-            [
-                'name' => 'Allegro',
-                'link' => '/allegro/accounts',
-                'icon' => 'speed',
-                'key' => 'allegro::menus.allegro',
-                'children_top' => [
-                    [
-                        'name' => 'Accounts',
-                        'link' => '/allegro/accounts',
-                        'key' => 'allegro::menus.accounts',
-                    ],
-                    [
-                        'name' => 'Applications',
-                        'link' => '/allegro/applications',
-                        'key' => 'allegro::menus.applications',
-                    ],
-                ],
-                'children' => [
-                    [
-                        'name' => 'Accounts',
-                        'link' => '/allegro/accounts',
-                        'key' => 'allegro::menus.accounts',
-                    ],
-                    [
-                        'name' => 'Applications',
-                        'link' => '/allegro/applications',
-                        'key' => 'allegro::menus.applications',
-                    ],
-                ],
-            ]
+
         ],
         'adminSidebar' =>[
             [

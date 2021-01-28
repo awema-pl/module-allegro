@@ -34,17 +34,8 @@ class Allegro implements AllegroContract
             if ($this->isActiveInstallationRoutes() && (!$this->isMigrated() || !$this->settings->exist())) {
                 $this->installationRoutes();
             }
-            if ($this->isActiveApplicationRoutes()) {
-                $this->applicationRoutes();
-            }
-            if ($this->isActiveAccountRoutes()) {
-                $this->accountRoutes();
-            }
             if ($this->isActiveSettingRoutes()) {
                 $this->settingRoutes();
-            }
-            if ($this->isActiveCallbackRoutes()) {
-                $this->callbackRoutes();
             }
         }
     }
@@ -84,79 +75,6 @@ class Allegro implements AllegroContract
             $this->router
                 ->patch('{id?}', '\AwemaPL\Allegro\Sections\Settings\Http\Controllers\SettingController@update')
                 ->name('update');
-        });
-    }
-
-    /**
-     * Application routes
-     */
-    protected function applicationRoutes()
-    {
-        $prefix = config('allegro.routes.application.prefix');
-        $namePrefix = config('allegro.routes.application.name_prefix');
-        $middleware = config('allegro.routes.application.middleware');
-        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
-            $this->router
-                ->get('/', '\AwemaPL\Allegro\Sections\Applications\Http\Controllers\ApplicationController@index')
-                ->name('index');
-            $this->router
-                ->post('/', '\AwemaPL\Allegro\Sections\Applications\Http\Controllers\ApplicationController@store')
-                ->name('store');
-            $this->router
-                ->get('/accounts', '\AwemaPL\Allegro\Sections\Applications\Http\Controllers\ApplicationController@scope')
-                ->name('scope');
-            $this->router
-                ->patch('{id?}', '\AwemaPL\Allegro\Sections\Applications\Http\Controllers\ApplicationController@update')
-                ->name('update');
-            $this->router
-                ->delete('{id?}', '\AwemaPL\Allegro\Sections\Applications\Http\Controllers\ApplicationController@delete')
-                ->name('delete');
-        });
-    }
-
-    /**
-     * Account routes
-     */
-    protected function accountRoutes()
-    {
-        $prefix = config('allegro.routes.account.prefix');
-        $namePrefix = config('allegro.routes.account.name_prefix');
-        $middleware = config('allegro.routes.account.middleware');
-        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
-            $this->router
-                ->get('/', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@index')
-                ->name('index');
-            $this->router
-                ->post('/', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@store')
-                ->name('store');
-            $this->router
-                ->get('/accounts', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@scope')
-                ->name('scope');
-            $this->router
-                ->patch('{id?}', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@update')
-                ->name('update');
-            $this->router
-                ->delete('{id?}', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@delete')
-                ->name('delete');
-            $this->router
-                ->post('/reconnect/{id?}', '\AwemaPL\Allegro\Sections\Accounts\Http\Controllers\AccountController@reconnect')
-                ->name('reconnect');
-        });
-    }
-
-
-    /**
-     * Callback routes
-     */
-    protected function callbackRoutes()
-    {
-        $prefix = config('allegro.routes.callback.prefix');
-        $namePrefix = config('allegro.routes.callback.name_prefix');
-        $middleware = config('allegro.routes.callback.middleware');
-        $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
-            $this->router
-                ->get('/add/{id}', '\AwemaPL\Allegro\Sections\Callbacks\Http\Controllers\CallbackController@add')
-                ->name('add');
         });
     }
 
@@ -220,38 +138,6 @@ class Allegro implements AllegroContract
     private function isActiveInstallationRoutes()
     {
         return config('allegro.routes.installation.active');
-    }
-
-
-    /**
-     * Is active application routes
-     *
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private function isActiveApplicationRoutes()
-    {
-        return config('allegro.routes.application.active');
-    }
-
-
-    /**
-     * Is active account routes
-     *
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    private function isActiveAccountRoutes()
-    {
-        return config('allegro.routes.account.active');
-    }
-
-    /**
-     * Is active callback routes
-     *
-     * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
-     */
-    public function isActiveCallbackRoutes()
-    {
-        return config('allegro.routes.callback.active');
     }
 
     /**

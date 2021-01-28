@@ -22,28 +22,6 @@ return [
             ]
         ],
 
-        'application' => [
-            'active' => true,
-            'prefix' => '/allegro/applications',
-            'name_prefix' => 'allegro.application.',
-            'middleware' => [
-                'web',
-                'auth',
-                'verified'
-            ]
-        ],
-
-        'account' => [
-            'active' => true,
-            'prefix' => '/allegro/accounts',
-            'name_prefix' => 'allegro.account.',
-            'middleware' => [
-                'web',
-                'auth',
-                'verified'
-            ]
-        ],
-
         'setting' => [
             'active' => true,
             'prefix' => '/admin/allegro/settings',
@@ -55,16 +33,6 @@ return [
             ]
         ],
 
-        'callback' => [
-            'active' => true,
-            'prefix' => '/allegro/callback',
-            'name_prefix' => 'allegro.callback.',
-            'middleware' => [
-                'web',
-                'auth',
-                'verified',
-            ]
-        ],
     ],
 
     /*
@@ -99,8 +67,6 @@ return [
         'tables' => [
             'users' => 'users',
             'allegro_settings' => 'allegro_settings',
-            'allegro_applications'=> 'allegro_applications',
-            'allegro_accounts' =>'allegro_accounts',
         ]
     ],
 

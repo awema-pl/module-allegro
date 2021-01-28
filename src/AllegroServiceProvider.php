@@ -2,16 +2,11 @@
 
 namespace AwemaPL\Allegro;
 
-use AwemaPL\Allegro\Sections\Accounts\Models\Account;
-use AwemaPL\Allegro\Sections\Accounts\Repositories\Contracts\AccountRepository;
-use AwemaPL\Allegro\Sections\Accounts\Repositories\EloquentAccountRepository;
 use AwemaPL\Allegro\Sections\Applications\Models\Application;
-use AwemaPL\Allegro\Sections\Accounts\Policies\AccountPolicy;
 use AwemaPL\Allegro\Sections\Applications\Repositories\Contracts\ApplicationRepository;
 use AwemaPL\Allegro\Sections\Applications\Repositories\EloquentApplicationRepository;
 use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Allegro\Sections\Settings\Repositories\EloquentSettingRepository;
-use AwemaPL\Allegro\Sections\Accounts\Services\Authorization;
 use AwemaPL\Allegro\Sections\Applications\Policies\ApplicationPolicy;
 use AwemaPL\BaseJS\AwemaProvider;
 use AwemaPL\Allegro\Listeners\EventSubscriber;
@@ -21,7 +16,6 @@ use AwemaPL\Allegro\Sections\Installations\Http\Middleware\Installation;
 use AwemaPL\Allegro\Sections\Installations\Http\Middleware\RouteMiddleware;
 use AwemaPL\Allegro\Contracts\Allegro as AllegroContract;
 use Illuminate\Support\Facades\Event;
-use AwemaPL\Allegro\Sections\Accounts\Services\Contracts\Authorization as AuthorizationContract;
 
 class AllegroServiceProvider extends AwemaProvider
 {
@@ -77,8 +71,6 @@ class AllegroServiceProvider extends AwemaProvider
      */
     protected function registerRepositories()
     {
-        $this->app->bind(ApplicationRepository::class, EloquentApplicationRepository::class);
-        $this->app->bind(AccountRepository::class, EloquentAccountRepository::class);
         $this->app->bind(SettingRepository::class, EloquentSettingRepository::class);
     }
 
@@ -89,7 +81,7 @@ class AllegroServiceProvider extends AwemaProvider
      */
     protected function registerServices()
     {
-        $this->app->bind(AuthorizationContract::class, Authorization::class);
+
     }
 
 
@@ -115,7 +107,7 @@ class AllegroServiceProvider extends AwemaProvider
     }
 
     /**
-     * Boot grEloquentAccountRepositoryoup middleware
+     * Boot group middleware
      */
     private function bootGroupMiddleware()
     {

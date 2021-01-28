@@ -3,8 +3,6 @@
 namespace AwemaPL\Allegro;
 
 use AwemaPL\Allegro\Sections\Applications\Models\Application;
-use AwemaPL\Allegro\Sections\Applications\Repositories\Contracts\ApplicationRepository;
-use AwemaPL\Allegro\Sections\Applications\Repositories\EloquentApplicationRepository;
 use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Allegro\Sections\Settings\Repositories\EloquentSettingRepository;
 use AwemaPL\Allegro\Sections\Applications\Policies\ApplicationPolicy;

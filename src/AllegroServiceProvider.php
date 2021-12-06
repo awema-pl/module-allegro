@@ -2,16 +2,14 @@
 
 namespace AwemaPL\Allegro;
 
-use AwemaPL\Allegro\Sections\Applications\Models\Application;
-use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
-use AwemaPL\Allegro\Sections\Settings\Repositories\EloquentSettingRepository;
-use AwemaPL\Allegro\Sections\Applications\Policies\ApplicationPolicy;
+use AwemaPL\Allegro\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
+use AwemaPL\Allegro\Admin\Sections\Settings\Repositories\EloquentSettingRepository;
 use AwemaPL\BaseJS\AwemaProvider;
 use AwemaPL\Allegro\Listeners\EventSubscriber;
-use AwemaPL\Allegro\Sections\Installations\Http\Middleware\GlobalMiddleware;
-use AwemaPL\Allegro\Sections\Installations\Http\Middleware\GroupMiddleware;
-use AwemaPL\Allegro\Sections\Installations\Http\Middleware\Installation;
-use AwemaPL\Allegro\Sections\Installations\Http\Middleware\RouteMiddleware;
+use AwemaPL\Allegro\Admin\Sections\Installations\Http\Middleware\GlobalMiddleware;
+use AwemaPL\Allegro\Admin\Sections\Installations\Http\Middleware\GroupMiddleware;
+use AwemaPL\Allegro\Admin\Sections\Installations\Http\Middleware\Installation;
+use AwemaPL\Allegro\Admin\Sections\Installations\Http\Middleware\RouteMiddleware;
 use AwemaPL\Allegro\Contracts\Allegro as AllegroContract;
 use Illuminate\Support\Facades\Event;
 

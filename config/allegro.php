@@ -9,29 +9,44 @@ return [
     'routes' => [
         // all routes is active
         'active' => true,
-        // section installations
-        'installation' => [
-            'active' => true,
-            'prefix' => '/installation/allegro',
-            'name_prefix' => 'allegro.installation.',
-            // this routes has beed except for installation module
-            'expect' => [
-                'module-assets.assets',
-                'allegro.installation.index',
-                'allegro.installation.store',
-            ]
-        ],
+       
+       'admin' =>[
+           'installation' => [
+               'active' => true,
+               'prefix' => '/admin/installation/allegro',
+               'name_prefix' => 'allegro.admin.installation.',
+               // this routes has beed except for installation module
+               'expect' => [
+                   'module-assets.assets',
+                   'allegro.admin.installation.index',
+                   'allegro.admin.installation.store',
+               ]
+           ],
 
-        'setting' => [
-            'active' => true,
-            'prefix' => '/admin/allegro/settings',
-            'name_prefix' => 'allegro.setting.',
-            'middleware' => [
-                'web',
-                'auth',
-                'can:manage_allegro_settings'
-            ]
-        ],
+           'setting' => [
+               'active' => true,
+               'prefix' => '/admin/allegro/settings',
+               'name_prefix' => 'allegro.admin.setting.',
+               'middleware' => [
+                   'web',
+                   'auth',
+                   'can:manage_allegro_settings'
+               ]
+           ],
+       ],
+
+        'user' =>[
+            'background' => [
+                'active' => true,
+                'prefix' => '/allegro/backgrounds',
+                'name_prefix' => 'allegro.user.background.',
+                'middleware' => [
+                    'web',
+                    'auth',
+                    'verified'
+                ]
+            ],
+        ]
 
     ],
 
@@ -67,6 +82,7 @@ return [
         'tables' => [
             'users' => 'users',
             'allegro_settings' => 'allegro_settings',
+            'allegro_backgrounds' => 'allegro_backgrounds',
         ]
     ],
 

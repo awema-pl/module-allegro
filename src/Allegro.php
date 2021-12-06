@@ -2,14 +2,10 @@
 
 namespace AwemaPL\Allegro;
 
-use AwemaPL\Allegro\Sections\Settings\Models\Setting;
-use AwemaPL\Allegro\Sections\Settings\Repositories\Contracts\SettingRepository;
-use Illuminate\Database\Migrations\Migrator;
-use Illuminate\Http\Request;
-use Illuminate\Routing\Router;
+use AwemaPL\Allegro\Admin\Sections\Settings\Repositories\Contracts\SettingRepository;
 use AwemaPL\Allegro\Contracts\Allegro as AllegroContract;
+use Illuminate\Routing\Router;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Config;
 
 class Allegro implements AllegroContract
 {
@@ -31,11 +27,11 @@ class Allegro implements AllegroContract
     public function routes()
     {
         if ($this->isActiveRoutes()) {
-            if ($this->isActiveInstallationRoutes() && (!$this->isMigrated() || !$this->settings->exist())) {
-                $this->installationRoutes();
+            if ($this->isActiveAdminInstallationRoutes() && !$this->isMigrated()) {
+                $this->adminInstallationRoutes();
             }
-            if ($this->isActiveSettingRoutes()) {
-                $this->settingRoutes();
+            if ($this->isActiveAdminSettingRoutes()) {
+                $this->adminSettingRoutes();
             }
         }
     }
@@ -43,15 +39,15 @@ class Allegro implements AllegroContract
     /**
      * Installation routes
      */
-    protected function installationRoutes()
+    protected function adminInstallationRoutes()
     {
-        $prefix = config('allegro.routes.installation.prefix');
-        $namePrefix = config('allegro.routes.installation.name_prefix');
+        $prefix = config('allegro.routes.admin.installation.prefix');
+        $namePrefix = config('allegro.routes.admin.installation.name_prefix');
         $this->router->prefix($prefix)->name($namePrefix)->group(function () {
             $this->router
-                ->get('/', '\AwemaPL\Allegro\Sections\Installations\Http\Controllers\InstallationController@index')
+                ->get('/', '\AwemaPL\Allegro\Admin\Sections\Installations\Http\Controllers\InstallationController@index')
                 ->name('index');
-            $this->router->post('/', '\AwemaPL\Allegro\Sections\Installations\Http\Controllers\InstallationController@store')
+            $this->router->post('/', '\AwemaPL\Allegro\Admin\Sections\Installations\Http\Controllers\InstallationController@store')
                 ->name('store');
         });
 
@@ -60,20 +56,20 @@ class Allegro implements AllegroContract
     /**
      * Setting routes
      */
-    protected function settingRoutes()
+    protected function adminSettingRoutes()
     {
-        $prefix = config('allegro.routes.setting.prefix');
-        $namePrefix = config('allegro.routes.setting.name_prefix');
-        $middleware = config('allegro.routes.setting.middleware');
+        $prefix = config('allegro.routes.admin.setting.prefix');
+        $namePrefix = config('allegro.routes.admin.setting.name_prefix');
+        $middleware = config('allegro.routes.admin.setting.middleware');
         $this->router->prefix($prefix)->name($namePrefix)->middleware($middleware)->group(function () {
             $this->router
-                ->get('/', '\AwemaPL\Allegro\Sections\Settings\Http\Controllers\SettingController@index')
+                ->get('/', '\AwemaPL\Allegro\Admin\Sections\Settings\Http\Controllers\SettingController@index')
                 ->name('index');
             $this->router
-                ->get('/applications', '\AwemaPL\Allegro\Sections\Settings\Http\Controllers\SettingController@scope')
+                ->get('/applications', '\AwemaPL\Allegro\Admin\Sections\Settings\Http\Controllers\SettingController@scope')
                 ->name('scope');
             $this->router
-                ->patch('{id?}', '\AwemaPL\Allegro\Sections\Settings\Http\Controllers\SettingController@update')
+                ->patch('{id?}', '\AwemaPL\Allegro\Admin\Sections\Settings\Http\Controllers\SettingController@update')
                 ->name('update');
         });
     }
@@ -87,9 +83,9 @@ class Allegro implements AllegroContract
     {
         $canForPermission = $this->canInstallForPermission();
         return $this->isActiveRoutes()
-            && $this->isActiveInstallationRoutes()
+            && $this->isActiveAdminInstallationRoutes()
             && $canForPermission
-            && (!$this->isMigrated() ||!$this->settings->exist());
+            && !$this->isMigrated();
     }
 
     /**
@@ -125,9 +121,9 @@ class Allegro implements AllegroContract
      *
      * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
      */
-    public function isActiveSettingRoutes()
+    public function isActiveAdminSettingRoutes()
     {
-        return config('allegro.routes.setting.active');
+        return config('allegro.routes.admin.setting.active');
     }
 
     /**
@@ -135,9 +131,9 @@ class Allegro implements AllegroContract
      *
      * @return \Illuminate\Config\Repository|\Illuminate\Contracts\Foundation\Application|mixed
      */
-    private function isActiveInstallationRoutes()
+    private function isActiveAdminInstallationRoutes()
     {
-        return config('allegro.routes.installation.active');
+        return config('allegro.routes.admin.installation.active');
     }
 
     /**
@@ -212,15 +208,6 @@ class Allegro implements AllegroContract
         Artisan::call('route:clear');
         Artisan::call('view:clear');
         Artisan::call('cache:clear');
-
-        $this->settings->create([
-            'key' => 'default_client_id',
-            'value' =>$data['default_client_id']
-        ]);
-        $this->settings->create([
-            'key' => 'default_client_secret',
-            'value' =>$data['default_client_secret']
-        ]);
     }
 
     /**

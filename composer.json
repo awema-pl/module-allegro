@@ -23,7 +23,6 @@
         "awema-pl/module-assets": "dev-master",
         "awema-pl/module-allegro-client": "dev-master",
         "awema-pl/module-auth": "dev-master",
-        "awema-pl/module-background": "dev-master",
         "awema-pl/module-base-js": "dev-master",
         "awema-pl/module-context-menu": "dev-master",
         "awema-pl/module-filter-wrapper": "dev-master",
@@ -81,13 +80,6 @@
         {
             "type": "path",
             "url": "../System-notify",
-            "options": {
-                "symlink": true
-            }
-        },
-        {
-            "type": "path",
-            "url": "../Background",
             "options": {
                 "symlink": true
             }

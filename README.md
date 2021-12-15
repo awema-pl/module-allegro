@@ -84,4 +84,3 @@ php artisan vendor:publish --provider="AwemaPL\Allegro\AllegroServiceProvider" -
 ## License
 
 [MIT](http://opensource.org/licenses/MIT)
- 
